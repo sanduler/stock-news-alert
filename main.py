@@ -48,16 +48,24 @@ difference_closing = abs(yest_closing - day_before_yest_closing)
 percent_difference = round((difference_closing / day_before_yest_closing) * 100, 2)
 # print(percent_difference)
 
-if percent_difference > TARGET_DIFFERENCE:
-    print("Get News!")
-else:
-    print(percent_difference)
 
 # pull the needed parameters from news
-parameters_news = {}
+parameters_news = {
+    "apiKey": NEWS_API_KEY,
+    "q": COMPANY_NAME,
+
+}
 
 # get a response from Stocks API
 response_news = requests.get(url=NEWS_ENDPOINT, params=parameters_news)
 response_news.raise_for_status()
-news_data = response_news.json()
+news_data = response_news.json()["articles"]
+print(news_data)
+
+
+
+if percent_difference > TARGET_DIFFERENCE:
+    print("Get News!")
+else:
+    print(percent_difference)
 
