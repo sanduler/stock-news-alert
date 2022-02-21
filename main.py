@@ -33,20 +33,16 @@ parameters_stock = {
 response_stock = requests.get(url=STOCK_ENDPOINT, params=parameters_stock)
 response_stock.raise_for_status()
 stock_data = response_stock.json()["Time Series (Daily)"]
-# print(stock_data)
+
 
 stock_data_list = [value for (key, value) in stock_data.items()]
 yest_closing = float(stock_data_list[0]["4. close"])
 day_before_yest_closing = float(stock_data_list[1]["4. close"])
-# print(yest_closing)
-# print(day_before_yest_closing)
-# print(stock_data_list)
-
 difference_closing = abs(yest_closing - day_before_yest_closing)
-# print(difference_closing)
+
 
 percent_difference = round((difference_closing / day_before_yest_closing) * 100, 2)
-# print(percent_difference)
+
 
 
 # pull the needed parameters from news
@@ -60,9 +56,34 @@ parameters_news = {
 response_news = requests.get(url=NEWS_ENDPOINT, params=parameters_news)
 response_news.raise_for_status()
 news_data = response_news.json()["articles"][0:3]
-print(news_data)
+news_list = [f"Headline: {articles['title']}. \n\nBrief: {articles['description']}\n\n" for articles in news_data]
+
+
+def news_listings():
+    total = ""
+    for news in news_list:
+        total += news
+
+    return total
+
 
 if percent_difference > TARGET_DIFFERENCE:
-    print("Get News!")
+    client = Client(account_sid, auth_token)
+    message = client.messages \
+        .create(
+        body=f"{STOCK_NAME}:🔽{percent_difference}\n\n{news_listings()}",
+        from_=FROM_PHONE,
+        to=TO_PHONE
+    )
+
 else:
-    print(percent_difference)
+    client = Client(account_sid, auth_token)
+    message = client.messages \
+        .create(
+        body=f"{STOCK_NAME}:🔽{percent_difference}\n\n{news_listings()}",
+        from_=FROM_PHONE,
+        to=TO_PHONE
+    )
+
+# print the status once the text is sent.
+print(message.status)
