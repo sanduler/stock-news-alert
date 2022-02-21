@@ -8,6 +8,7 @@
 import requests
 import os
 from twilio.rest import Client
+from twilio.rest.api.v2010.account.usage.record import yesterday
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -33,9 +34,15 @@ parameters_stock = {
 # get a response from Stocks API
 response_stock = requests.get(url=STOCK_ENDPOINT, params=parameters_stock)
 response_stock.raise_for_status()
-stock_data = response_stock.json()
-print(stock_data)
+stock_data = response_stock.json()["Time Series (Daily)"]
+# print(stock_data)
 
+stock_data_list = [value for (key, value) in stock_data.items()]
+yesterday_closing = stock_data_list[0]["4. close"]
+day_before_yesterday_closing = stock_data_list[1]["4. close"]
+print(yesterday_closing)
+print(day_before_yesterday_closing)
+# print(stock_data_list)
 
 # pull the needed parameters from news
 parameters_news = {}
