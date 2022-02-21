@@ -59,13 +59,10 @@ parameters_news = {
 # get a response from Stocks API
 response_news = requests.get(url=NEWS_ENDPOINT, params=parameters_news)
 response_news.raise_for_status()
-news_data = response_news.json()["articles"]
+news_data = response_news.json()["articles"][0:3]
 print(news_data)
-
-
 
 if percent_difference > TARGET_DIFFERENCE:
     print("Get News!")
 else:
     print(percent_difference)
-
