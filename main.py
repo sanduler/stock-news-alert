@@ -23,12 +23,18 @@ FROM_PHONE = os.environ["FROM_TEXT"]
 TO_PHONE = os.environ["TO_TEXT"]
 
 # pull the needed parameters from stock
-parameters_stock = {}
+parameters_stock = {
+    "function": "TIME_SERIES_DAILY",
+    "symbol": STOCK_NAME,
+    "datatype": "json",
+    "apikey": STOCK_API_KEY,
+}
 
 # get a response from Stocks API
 response_stock = requests.get(url=STOCK_ENDPOINT, params=parameters_stock)
 response_stock.raise_for_status()
 stock_data = response_stock.json()
+print(stock_data)
 
 
 # pull the needed parameters from news
