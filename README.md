@@ -1,29 +1,25 @@
 
 # Stock News Alert
 
-[//]: # (A powerful solution that assists individuals and businesses in securely storing and managing all of their login details. The program uses tkinter library for GUI as well as pyperclip, and json library to store the data localy. )
-
-[//]: # (The program allows for a search for the username and password based on the website entered.  Finally, the program allows from a click of a button)
-
-[//]: # (to generate secure passwords. )
+A powerful solution for stock enthusiasts. Stock News Alert programs allows the user to set up an alert via SMS everytime
+a percent difference occurs between two closing days. The program can be preconfigured to track any stock. Currently 
+the program is preconfigured for TSLA. The variable can be changed and modified.
 
 
 
 ## Features
 
-[//]: # (- Fully functional GUI)
+- Fully automatic script.
 
-[//]: # (- Low memory usage)
+- Low memory usage.
 
-[//]: # (- Cross platform)
+- Cross-platform.
 
-[//]: # (- Password auto clipboard )
+- SMS preconfigured, uses Twilio API.
 
-[//]: # (- Local storage)
+- Uses NewsAPI.org for generating recent articles.
 
-[//]: # (- Search)
-
-[//]: # (- Auto generates complex random passwords with a click of a button)
+- Alpha Vantage for Stock API info.
 
 
 ## Authors
@@ -60,7 +56,23 @@ This is an example of how to list things you need to use the software and how to
    ```
 2. Install NPM packages
    ```sh
-   npm install pyperclip
+   npm install twilio.rest
+   ```
+3. Install NPM packages
+   ```sh
+   npm install requests
+   ```
+4. Get theStock API
+   ```sh
+   https://www.alphavantage.co
+   ```
+5. Get the NewsAPI
+    ```sh
+   https://newsapi.org
+   ```
+6. Get the Twilio API
+   ```sh
+   https://www.twilio.com
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -68,16 +80,8 @@ This is an example of how to list things you need to use the software and how to
 
 ## Screenshots
 
-![App Screenshot](img/img0.png)
+![App Screenshot](img/img0.jpeg)
 --------------------------------
-![App Screenshot](img/img2.png)
---------------------------------
-![App Screenshot](img/img3.png)
---------------------------------
-![App Screenshot](img/img4.png)
---------------------------------
-![App Screenshot](img/img5.png)
-
 
 ## License
 
