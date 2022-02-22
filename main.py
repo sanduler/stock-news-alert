@@ -31,19 +31,19 @@ parameters_stock = {
 
 # get a response from Stocks API
 response_stock = requests.get(url=STOCK_ENDPOINT, params=parameters_stock)
+# raise a status in case of an error
 response_stock.raise_for_status()
+# narrow down the data to show only the data for specific days
 stock_data = response_stock.json()["Time Series (Daily)"]
-
-
+# use list comprehension to create a new list with a key value pair
 stock_data_list = [value for (key, value) in stock_data.items()]
+# get the data for the two days
 yest_closing = float(stock_data_list[0]["4. close"])
 day_before_yest_closing = float(stock_data_list[1]["4. close"])
+# calculate the difference between the two days
 difference_closing = abs(yest_closing - day_before_yest_closing)
-
-
+# calculate the percent_difference between the two days
 percent_difference = round((difference_closing / day_before_yest_closing) * 100, 2)
-
-
 
 # pull the needed parameters from news
 parameters_news = {
@@ -54,12 +54,16 @@ parameters_news = {
 
 # get a response from Stocks API
 response_news = requests.get(url=NEWS_ENDPOINT, params=parameters_news)
+# raise status in case of an error
 response_news.raise_for_status()
+# only use three most recent articles
 news_data = response_news.json()["articles"][0:3]
+# format the news list and place it in a list that will be used later
 news_list = [f"Headline: {articles['title']}. \n\nBrief: {articles['description']}\n\n" for articles in news_data]
 
 
 def news_listings():
+    """combine the list of the three top articles into one string"""
     total = ""
     for news in news_list:
         total += news
@@ -67,6 +71,8 @@ def news_listings():
     return total
 
 
+# if the percent_difference is greater than 5% then the program will
+#  send a text letting the user know and show all the stats.
 if percent_difference > TARGET_DIFFERENCE:
     client = Client(account_sid, auth_token)
     message = client.messages \
@@ -75,7 +81,8 @@ if percent_difference > TARGET_DIFFERENCE:
         from_=FROM_PHONE,
         to=TO_PHONE
     )
-
+# if the percent_difference is less than 5% then the program will
+#  send a text letting the user know and show all the stats.
 else:
     client = Client(account_sid, auth_token)
     message = client.messages \
