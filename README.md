@@ -19,7 +19,7 @@ the program is preconfigured for TSLA. The variable can be changed and modified.
 
 - Uses NewsAPI.org for generating recent articles.
 
-- Alpha Vantage for Stock API info.
+- Alpha Vantage for Stock API.
 
 
 ## Authors
