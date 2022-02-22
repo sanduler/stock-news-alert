@@ -77,7 +77,7 @@ if percent_difference > TARGET_DIFFERENCE:
     client = Client(account_sid, auth_token)
     message = client.messages \
         .create(
-        body=f"{STOCK_NAME}:🔽{percent_difference}\n\n{news_listings()}",
+        body=f"{STOCK_NAME}:🔽{percent_difference}%\n\n{news_listings()}",
         from_=FROM_PHONE,
         to=TO_PHONE
     )
@@ -87,7 +87,7 @@ else:
     client = Client(account_sid, auth_token)
     message = client.messages \
         .create(
-        body=f"{STOCK_NAME}:🔽{percent_difference}\n\n{news_listings()}",
+        body=f"{STOCK_NAME}:🔽{percent_difference}%\n\n{news_listings()}",
         from_=FROM_PHONE,
         to=TO_PHONE
     )
